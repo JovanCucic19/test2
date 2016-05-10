@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Meet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <link href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="node_modules/angular-messages/angular-messages.js"></script>
+    <script type="text/javascript" src="node_modules/angular-password/angular-password.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"> </script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script type="text/javascript" src="app/controllers/validationRegister.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-app="validationApp">
+<!--LOGIN POPUP-->
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login:</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" ng-class="{ 'has-error' : registerForm.email.$invalid && registerForm.email.$touched }">
+                        <label for="email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" id="email2" name="email" ng-model="user.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required placeholder="Email" class="form-control" required>
+                            <div class="help-block" ng-messages="registerForm.email.$error" ng-if="registerForm.email.$touched">
+                                <p ng-message="pattern">Your email is not valid</p>
+                                <p ng-message="required">Your email is required</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : registerForm.password.$invalid && registerForm.password.$touched }">
+                        <label for="password" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" id="password2" name="password" ng-model="user.password" ng-minlength="6" ng-maxlength="32" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required placeholder="Password" class="form-control" autofocus>
+                            <div class="help-block" ng-messages="registerForm.password.$error" ng-if="registerForm.password.$touched">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--LOGIN POPUP-->
+
+<div class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header col-md-8">
+                    <button type="button" class="navbar-toggle" toggle="collapse" target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" rel="home">MeetMe</a>
+                </div>
+                <div class="navbar-header col-md-1">
+                    <a class="navbar-brand" rel="home" href="#home" target="_self">Home</a>
+                </div>
+                <a href="#login" rel="" class="navbar-brand" data-toggle="modal" data-target="#myModal" id="login">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="home">
+    <div class="text-vertical-center">
+        <h1>Come join MeetMe</h1>
+        <h3>Don't have an account?</h3>
+        <div class="registerBox"><a href="#register" rel="" class="navbar-brand" id="dole"><div class="btn btn-primary btn-lg">Register</div></a></div>
+    </div>
+</section>
+
+
+<section id="register">
+<div ng-controller="validationController as user" required>
+    <div class="container">
+
+        <form class="form-horizontal" role="form" name="registerForm" ng-submit="submitForm()" novalidate method="post">
+            <h2>Register Here!</h2>
+
+<!--FIRST NAME-->
+            <div class="form-group" ng-class="{ 'has-error' : registerForm.firstName.$invalid && registerForm.firstName.$touched }">
+                <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                <div class="col-sm-9">
+                    <input type="text" id="firstName" name="firstName" ng-model="user.firstName" ng-minlength="2" ng-maxlength="16" required placeholder="First Name" class="form-control" capitalize-first autofocus>
+                    <div class="help-block" ng-messages="registerForm.firstName.$error" ng-if="registerForm.firstName.$touched">
+                        <p ng-message="minlength">Your first name must be at least 2 characters long</p>
+                        <p ng-message="maxlength">Your first name must be maximum 16 characters long</p>
+                        <p ng-message="required">Your first name is required.</p>
+                    </div>
+                </div>
+            </div>
+<!--FIRST NAME-->
+
+<!--LAST NAME-->
+            <div class="form-group" ng-class="{ 'has-error' : registerForm.lastName.$invalid && registerForm.lastName.$touched }">
+                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                <div class="col-sm-9">
+                    <input type="text" id="lastName" name="lastName" ng-model="user.lastName" ng-minlength="2" ng-maxlength="16" required placeholder="Last Name" class="form-control" capitalize-first autofocus>
+                    <div class="help-block" ng-messages="registerForm.lastName.$error" ng-if="registerForm.lastName.$touched">
+                        <p ng-message="minlength">Your last name must be at least 2 characters long</p>
+                        <p ng-message="maxlength">Your last name must be maximum 16 characters long</p>
+                        <p ng-message="required">Your last name is required.</p>
+                    </div>
+                </div>
+            </div>
+<!--LAST NAME-->
+
+<!--EMAIL-->
+            <div class="form-group" ng-class="{ 'has-error' : registerForm.email.$invalid && registerForm.email.$touched }">
+                <label for="email" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="email" id="email" name="email" ng-model="user.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required placeholder="Email" class="form-control" required>
+                    <div class="help-block" ng-messages="registerForm.email.$error" ng-if="registerForm.email.$touched">
+                        <p ng-message="pattern">Your email is not valid</p>
+                        <p ng-message="required">Your email is required</p>
+                    </div>
+                </div>
+            </div>
+<!--EMAIL-->
+
+<!--USERNAME-->
+            <div class="form-group" ng-class="{ 'has-error' : registerForm.username.$invalid && registerForm.username.$touched }">
+                <label for="username" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-9">
+                    <input type="text" id="username" name="username" ng-model="user.username" ng-minlength="4" ng-maxlength="16" ng-pattern="/^[a-zA-Z0-9]*$/" required placeholder="Username" class="form-control" autofocus>
+                    <div class="help-block" ng-messages="registerForm.username.$error" ng-if="registerForm.username.$touched">
+                        <p ng-message="minlength">Your username must be at least 4 characters long</p>
+                        <p ng-message="maxlength">Your username must be maximum 16 characters long</p>
+                        <p ng-message="pattern">Your username can contain only alphanumeric characters</p>
+                        <p ng-message="required">Your username is required</p>
+                    </div>
+                </div>
+            </div>
+<!--USERNAME-->
+
+<!--PASSWORD-->
+            <div class="form-group" ng-class="{ 'has-error' : registerForm.password.$invalid && registerForm.password.$touched }">
+                <label for="password" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" id="password" name="password" ng-model="user.password" ng-minlength="6" ng-maxlength="32" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required placeholder="Password" class="form-control" autofocus>
+                    <div class="help-block" ng-messages="registerForm.password.$error" ng-if="registerForm.password.$touched">
+                        <p ng-message="minlength">Your password must be at least 4 characters long</p>
+                        <p ng-message="maxlength">Your password must be maximum 32 characters long</p>
+                        <p ng-message="pattern">Your Password must contain one lower & uppercase letter, and one non-alpha character(a number or a symbol.) </p>
+                        <p ng-message="required">Your password is required</p>
+                    </div>
+                </div>
+            </div>
+<!--PASSWORD-->
+
+<!--CONFIRM PASSWORD-->
+            <div class="form-group" ng-class="{ 'has-error' : registerForm.confirmPassword.$invalid && registerForm.confirmPassword.$touched }">
+                <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+                <div class="col-sm-9">
+                    <input type="password" id="confirmPassword" name="confirmPassword" ng-model="user.confirmPassword" match-password="password" placeholder="Confirm Password" class="form-control" required>
+                    <div class="help-block" ng-messages="registerForm.confirmPassword.$error" ng-if="registerForm.password.$touched">
+                        <p ng-message="passwordMatch">Passwords don't mactch</p>
+                        <p ng-message="required">Your password is required</p>
+                    </div>
+                </div>
+            </div>
+<!--CONFIRM PASSWORD-->
+
+<!--DATE OF BIRTH-->
+            <div class="form-group" ng-controller="ctrlDateController">
+                <label for="birthDate" class="col-sm-3 control-label">Date of Birth</label>
+                <div class="col-sm-9">
+                    <input type="date" id="birthDate" class="form-control" max="{{minAge | date:'yyyy-MM-dd'}}" required>
+                </div>
+            </div>
+<!--DATE OF BIRTH-->
+
+<!--GENDER-->
+            <div class="form-group">
+                <label class="control-label col-sm-3">Your Gender</label>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input type="radio" name="genderRadio" id="maleRadio" value="Male" checked="">Male
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input type="radio" name="genderRadio" id="femaleRadio" value="Female">Female
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+<!--GENDER-->
+
+<!--YOUR PREFERENCE-->
+            <div class="form-group">
+                <label class="control-label col-sm-3">Your Preference</label>
+                <div class="col-sm-9">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="maleCheckbox" value="Male">Male
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="femaleCheckbox" value="Female">Female
+                        </label>
+                    </div>
+                </div>
+            </div>
+<!--YOUR PREFERENCE-->
+
+<!--ToC-->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="terms" required>I accept <a href="#" data-toggle="modal" data-target="#myModal2">terms & conditions</a>
+                        </label>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal2" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Terms:</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Some terms...</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+<!--ToC-->
+
+<!--REGISTER BTN-->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary btn-block" ng-disabled="registerForm.$invalid">Register</button>
+                </div>
+            </div>
+<!--REGISTER BTN-->
+
+        </form>
+    </div>
+</div>
+</section>
+
+</body>
+</html>
